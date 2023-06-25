@@ -13,7 +13,7 @@ self.onmessage = (message) => {
         self.clients.claim();
         return;
     }
-    else if (message.data.action === 'claim'){
+    else if (message.data.action === 'test'){
         console.log('test');
     }
 };
