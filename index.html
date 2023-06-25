@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">  
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <title>Notification Test Page</title>
 </head>
-<body>
-    
 
-    
+<body>
+
+
+    <script>
+        if ('serviceWorker' in navigator) {
+  window.onload = async () => {
+    // Service WorkerがWebアプリをコントロール開始
+    navigator.serviceWorker.oncontrollerchange = () => {
+      window.location.reload();
+    }
+    const registration = await navigator.serviceWorker.register('sw.js');
+    const activeRegistration = await navigator.serviceWorker.ready;
+    activeRegistration.active.postMessage({ action: 'claim' });
+  }
+}
+    </script>
 </body>
+
 </html>
