@@ -1,5 +1,10 @@
 const CACHE_VERSION = 'v1';
 const CACHE_NAME = `${registration.scope}!${CACHE_VERSION}`;
+const MESSAGE_STATE = {
+    CLAIM: 'claim',
+    NOTIFICATION_REQ: 'notification_req',
+
+};
 
 // キャッシュするファイルをセットする
 const urlsToCache = [
@@ -9,12 +14,15 @@ const urlsToCache = [
 
 
 self.onmessage = (message) => {
-    if (message.data.action === 'claim') {
-        self.clients.claim();
-        return;
-    }
-    else if (message.data.action === 'test'){
-        console.log('test');
+    switch (message) {
+        case MESSAGE_STATE.CLAIM:
+            self.clients.claim();
+            break;
+        case MESSAGE_STATE.NOTIFICATION_REQ:
+            Notification.requestPermission().then((data) => {
+                console.log(data)
+            });
+            break;
     }
 };
 

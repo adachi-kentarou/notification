@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <button onclick="swTest();">テスト</button>
+    <button onclick="NotificationReq();">テスト</button>
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -27,14 +27,10 @@
             });
         }
 
-        function swTest() {
-            (
-                async () => {
-                    const activeRegistration = await navigator.serviceWorker.ready;
-                    // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
-                    activeRegistration.active.postMessage({ action: 'test' });
-                }
-            )();
+        async function NotificationReq() {
+            const activeRegistration = await navigator.serviceWorker.ready;
+            // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
+            activeRegistration.active.postMessage({ action: 'test' });
         };
     </script>
 </body>
