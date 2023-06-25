@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+<button onclick="">テスト</button>
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -26,6 +26,10 @@
                 console.log('ServiceWorker の登録に失敗しました。', err);
             });
         }
+
+        function swTest() {
+            activeRegistration.active.postMessage({ action: 'test' });
+        };
     </script>
 </body>
 
