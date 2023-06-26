@@ -37,7 +37,7 @@
         async function NotificationReq() {
             const activeRegistration = await navigator.serviceWorker.ready;
             // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
-            activeRegistration.active.postMessage({ action: 'notification_req' });            });
+            activeRegistration.active.postMessage({ action: 'notification_req' });
         };
     </script>
 </body>
