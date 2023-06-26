@@ -32,8 +32,9 @@
         function PermissionReq() {
 
             Notification.requestPermission().then((data) => {
-                console.log(data)
+                
                 if (data === "granted") {
+                    console.log(data);
                     navigator.serviceWorker.ready.then((registration) => {
                         registration.showNotification("バイブレーションの例", {
                             body: "ブンブン! ブンブン!",
