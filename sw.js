@@ -15,7 +15,7 @@ const urlsToCache = [
 
 self.onmessage = (message) => {
     console.log(message);
-    switch (message) {
+    switch (message.data.action) {
         case MESSAGE_STATE.CLAIM:
             self.clients.claim();
             break;
