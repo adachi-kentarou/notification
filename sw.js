@@ -21,7 +21,7 @@ self.onmessage = (message) => {
             break;
         case MESSAGE_STATE.NOTIFICATION_REQ:
             console.log("test");
-            return self.registration.showNotification("バイブレーションの例", {
+            return self.registration.showNotification("バイブレーションの例2", {
                 body: "ブンブン! ブンブン!",
                 icon: "./icon.png",
                 vibrate: [200, 100, 200, 100, 200, 100, 200],
