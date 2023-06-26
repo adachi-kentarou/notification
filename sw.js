@@ -23,19 +23,21 @@ self.onmessage = (message) => {
             console.log("test");
             let time = 0;
             let id = setInterval(() => {
-                self.registration.showNotification("バイブレーションの例2", {
-                    body: `タイム${time}`,
-                    icon: "./icon.png",
-                    vibrate: [200, 100, 200, 100, 200, 100, 200],
-                    tag: "vibration-sample",
-                });
                 time++;
                 if (time > 10) {
-                    
+
                     self.registration.getNotifications({ tag: "vibration-sample" })
-                    .then((notifications)=>{
-                        notifications[0].close();
-                        clearInterval(id);
+                        .then((notifications) => {
+                            notifications[0].close();
+                            clearInterval(id);
+                        });
+                }
+                else {
+                    self.registration.showNotification("バイブレーションの例2", {
+                        body: `タイム${time}`,
+                        icon: "./icon.png",
+                        vibrate: [200, 100, 200, 100, 200, 100, 200],
+                        tag: "vibration-sample",
                     });
                 }
             }, 1000);
