@@ -31,9 +31,12 @@ self.onmessage = (message) => {
                 });
                 time++;
                 if (time > 10) {
-                    clearInterval(id);
-                    let notifi = self.registration.getNotifications({ tag: "vibration-sample" });
-                    notifi[0].close();
+                    
+                    self.registration.getNotifications({ tag: "vibration-sample" })
+                    .then((notifications)=>{
+                        notifications[0].close();
+                        clearInterval(id);
+                    });
                 }
             }, 1000);
             break;
