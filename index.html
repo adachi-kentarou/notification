@@ -19,6 +19,8 @@
                         const activeRegistration = await navigator.serviceWorker.ready;
                         // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
                         activeRegistration.active.postMessage({ action: 'claim' });
+
+                        registration.update();
                     }
                 )();
             }).catch(function (err) {
@@ -28,16 +30,27 @@
         }
 
         function PermissionReq() {
-            
+
             Notification.requestPermission().then((data) => {
                 console.log(data)
+                if (data === "granted") {
+                    navigator.serviceWorker.ready.then((registration) => {
+                        registration.showNotification("バイブレーションの例", {
+                            body: "ブンブン! ブンブン!",
+                            icon: "../images/touch/chrome-touch-icon-192x192.png",
+                            vibrate: [200, 100, 200, 100, 200, 100, 200],
+                            tag: "vibration-sample",
+                        });
+                    });
+                }
             });
         };
 
         async function NotificationReq() {
-            const activeRegistration = await navigator.serviceWorker.ready;
+            //const activeRegistration = await navigator.serviceWorker.ready;
             // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
-            activeRegistration.active.postMessage({ action: 'notification_req' });
+            //activeRegistration.active.postMessage({ action: 'notification_req' });
+
         };
     </script>
 </body>
