@@ -19,10 +19,14 @@ self.onmessage = (message) => {
             self.clients.claim();
             break;
         case MESSAGE_STATE.NOTIFICATION_REQ:
-            console.log('notifi req');
-            Notification.requestPermission().then((data) => {
-                console.log(data)
-            });
+            var n = new Notification(
+                'テスト',
+                {
+                  body: '本文XXXXXX',
+                  icon: 'icon.png',
+                  tag: 'test'
+                }
+              );
             break;
     }
 };
