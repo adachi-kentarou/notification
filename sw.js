@@ -21,14 +21,13 @@ self.onmessage = (message) => {
             break;
         case MESSAGE_STATE.NOTIFICATION_REQ:
             console.log("test");
-            var n = new Notification(
-                'テスト',
-                {
-                  body: '本文XXXXXX',
-                  icon: 'icon.png',
-                  tag: 'test'
-                }
-              );
+
+            self.showNotification("バイブレーションの例", {
+                body: "ブンブン! ブンブン!",
+                icon: "./icon.png",
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
+                tag: "vibration-sample",
+              });
             break;
     }
 };
