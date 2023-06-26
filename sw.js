@@ -19,6 +19,7 @@ self.onmessage = (message) => {
             self.clients.claim();
             break;
         case MESSAGE_STATE.NOTIFICATION_REQ:
+            console.log("test");
             var n = new Notification(
                 'テスト',
                 {
