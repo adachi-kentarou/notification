@@ -21,12 +21,21 @@ self.onmessage = (message) => {
             break;
         case MESSAGE_STATE.NOTIFICATION_REQ:
             console.log("test");
-            return self.registration.showNotification("バイブレーションの例2", {
-                body: "ブンブン! ブンブン!",
-                icon: "./icon.png",
-                vibrate: [200, 100, 200, 100, 200, 100, 200],
-                tag: "vibration-sample",
-            });
+            let time = 0;
+            let id = setInterval(() => {
+                self.registration.showNotification("バイブレーションの例2", {
+                    body: `タイム${time}`,
+                    icon: "./icon.png",
+                    vibrate: [200, 100, 200, 100, 200, 100, 200],
+                    tag: "vibration-sample",
+                });
+                time++;
+                if (time > 10) {
+                    clearInterval(id);
+                    let notifi = self.registration.getNotifications({ tag: "vibration-sample" });
+                    notifi[0].close();
+                }
+            }, 1000);
             break;
     }
 };
