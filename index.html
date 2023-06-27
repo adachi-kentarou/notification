@@ -8,6 +8,8 @@
 <body>
     <button onclick="PermissionReq();">通知許可</button>
     <button onclick="NotificationReq();">通知</button>
+    <button onclick="NotificationPushJsReq();">push.js</button>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').then(function (registration) {
@@ -33,7 +35,7 @@
 
             Notification.requestPermission().then((data) => {
                 console.log(data);
-                
+
             });
         };
 
@@ -43,6 +45,20 @@
             activeRegistration.active.postMessage({ action: 'notification_req' });
 
         };
+
+        function NotificationPushJsReq() {
+            function push() {
+                Push.create("更新情報",
+                    {
+                        body: "Push.js",
+                        icon: '/icon.png',
+                        timeout: 8000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    })
+            };
     </script>
 </body>
 
