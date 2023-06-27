@@ -48,8 +48,7 @@
         };
 
         function NotificationPushJsReq() {
-            function push() {
-                Push.create("更新情報",
+            Push.create("更新情報",
                     {
                         body: "Push.js",
                         icon: '/icon.png',
@@ -58,8 +57,7 @@
                             window.focus();
                             this.close();
                         }
-                    })
-            };
+                    });
         };
     </script>
 </body>
