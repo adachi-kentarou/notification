@@ -28,7 +28,9 @@ self.onmessage = (message) => {
 
                     self.registration.getNotifications({ tag: "vibration-sample" })
                         .then((notifications) => {
-                            notifications[0].close();
+                            if (notifications.lengtht >= 1){
+                                notifications[0].close();
+                            }
                             clearInterval(id);
                         });
                 }
