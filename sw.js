@@ -53,7 +53,7 @@ self.onmessage = (message) => {
 
 
         
-document.addEventListener('notificationclick', (event) => {
+self.addEventListener('notificationclick', (event) => {
     console.log('On notification click: ', event.notification.tag);
 });
 
