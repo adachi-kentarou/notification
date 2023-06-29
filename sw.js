@@ -13,8 +13,7 @@ const urlsToCache = [
     'sw.js',
     'index.html',
     'icon.png',
-    'favicon.ico',
-    "js/push.js"
+    'favicon.ico'
 ];
 
 self.onmessage = (message) => {
