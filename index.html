@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" charset>
 
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="UTF-8">
     <title>Notification Test Page</title>
 </head>
 
@@ -11,6 +12,7 @@
     <button onclick="NotificationPushJsReq();">push.js</button>
     <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
+    
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').then(function (registration) {
@@ -53,12 +55,14 @@
                         body: "Push.js",
                         icon: '/icon.png',
                         timeout: 8000,
-                        onClick: function () {
+                        onNotificatio: function (e) {
+                            console.log(e);
                             window.focus();
                             this.close();
                         }
                     });
         };
+
     </script>
 </body>
 

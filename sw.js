@@ -9,9 +9,13 @@ const MESSAGE_STATE = {
 // キャッシュするファイルをセットする
 const urlsToCache = [
     '.',
-    'js/main.js'
+    'js/main.js',
+    'sw.js',
+    'index.html',
+    'icon.png',
+    'favicon.ico',
+    "js/push.js"
 ];
-
 
 self.onmessage = (message) => {
     console.log(message);
@@ -24,7 +28,7 @@ self.onmessage = (message) => {
             let time = 0;
             let id = setInterval(() => {
                 time++;
-                if (time > 10) {
+                if (time > 20) {
 
                     self.registration.getNotifications({ tag: "vibration-sample" })
                         .then((notifications) => {
@@ -47,7 +51,14 @@ self.onmessage = (message) => {
     }
 };
 
+
+        
+document.addEventListener('notificationclick', (event) => {
+    console.log('On notification click: ', event.notification.tag);
+});
+
 self.addEventListener('install', (event) => {
+    
     event.waitUntil(
         // キャッシュを開く
         caches.open(CACHE_NAME)
