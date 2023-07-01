@@ -70,14 +70,16 @@ self.onmessage = (message) => {
 
 self.addEventListener('notificationclick', (event) => {
     event.preventDefault();
-    event.waitUntil(clients.matchAll({
+    return event.waitUntil(clients.matchAll({
         type: "window"
     }).then((clientList) => {
-        event.notification.close();
+        
         for (const client of clientList) {
-            if ('focus' in client)
+            //if ('focus' in client)
                 return client.focus();
         }
+        event.notification.close();
+        
     }));
 
     //clients.openWindow('https://www.google.com/')
