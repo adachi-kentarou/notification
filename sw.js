@@ -74,12 +74,11 @@ self.addEventListener('notificationclick', (event) => {
         type: "window"
     }).then((clientList) => {
         
+        event.notification.close();
         for (const client of clientList) {
             //if ('focus' in client)
                 return client.focus();
         }
-        self.close();
-        event.notification.close();
     }));
 
     //clients.openWindow('https://www.google.com/')
