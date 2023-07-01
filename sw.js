@@ -27,22 +27,31 @@ self.onmessage = (message) => {
             let time = 0;
             let id = setInterval(() => {
                 time++;
-                if (time > 20) {
+                if (time > 5) {
 
                     self.registration.getNotifications({ tag: "vibration-sample" })
                         .then((notifications) => {
-                            if (notifications.lengtht >= 1){
-                                notifications[0].close();
-                            }
+                            notifications.map((notification) => {
+
+                                notification.close();
+
+                            });
                             clearInterval(id);
                         });
                 }
                 else {
-                    self.registration.showNotification("バイブレーションの例2", {
+                    self.registration.showNotification('バイブレーションの例2', {
                         body: `タイム${time}`,
-                        icon: "./icon.png",
+                        icon: './icon.png',
                         vibrate: [200, 100, 200, 100, 200, 100, 200],
-                        tag: "vibration-sample",
+                        tag: 'vibration-sample',
+                        actions: [
+                            {
+                                action: 'action1',
+                                title: 'title 1',
+                                icon: './icon.png'
+                            }
+                        ]
                     });
                 }
             }, 1000);
@@ -50,18 +59,18 @@ self.onmessage = (message) => {
     }
 };
 
-
-        
 self.addEventListener('notificationclick', (event) => {
-    console.log('On notification click: ', event.notification.tag);
+    console.log(event.action);
+    clients.openWindow('https://www.google.com/')
 });
 
 self.addEventListener('install', (event) => {
-    
+    console.log("install");
     event.waitUntil(
         // キャッシュを開く
         caches.open(CACHE_NAME)
             .then((cache) => {
+                console.log(cache);
                 // 指定されたファイルをキャッシュに追加する
                 return cache.addAll(urlsToCache);
             })
@@ -69,6 +78,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+    console.log("activate");
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return cacheNames.filter((cacheName) => {
@@ -86,6 +96,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    console.log("fetch");
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
