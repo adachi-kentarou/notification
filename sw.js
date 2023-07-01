@@ -50,7 +50,7 @@ self.onmessage = (message) => {
                             {
                                 action: 'action1',
                                 title: 'title 1',
-                                icon: './icon.png'
+                                icon: './notification/icon.png'
                             }
                         ]
                     })
