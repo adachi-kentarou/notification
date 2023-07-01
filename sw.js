@@ -28,7 +28,7 @@ self.onmessage = (message) => {
             let time = 0;
             let id = setInterval(() => {
                 time++;
-                if (time > 5) {
+                if (time > 10) {
 
                     self.registration.getNotifications({ tag: "vibration-sample" })
                         .then((notifications) => {
@@ -53,10 +53,7 @@ self.onmessage = (message) => {
                                 icon: './icon.png'
                             }
                         ]
-                    }).then((notifi) => {
-                        console.log(notifi);
-
-                    });
+                    })
                 }
             }, 1000);
             break;
@@ -65,35 +62,26 @@ self.onmessage = (message) => {
                 body: `test`,
                 icon: './icon.png',
                 vibrate: [200, 100, 200, 100, 200, 100, 200],
-                tag: 'vibration-sample',
-                actions: [
-                    {
-                        action: 'action1',
-                        title: 'title 1',
-                        icon: './icon.png'
-                    }
-                ]
-            }).then((notifi) => {
-                self.registration.getNotifications({ tag: "vibration-sample" })
-                    .then((notifications) => {
-                        notifications.map((notification) => {
-
-                            notification.addEventListener('click', () => {
-                                console.log('aaaaaaaaaaaa');
-
-                            });
-
-                        });
-                        
-                    });
+                tag: 'vibration-sample'
             });
             break;
     }
 };
 
 self.addEventListener('notificationclick', (event) => {
-    console.log(event.action);
-    clients.openWindow('https://www.google.com/')
+    event.waitUntil(clients.matchAll({
+        type: "window"
+    }).then((clientList) => {
+        for (const client of clientList) {
+            if (client.url === '/' && 'focus' in client)
+                return client.focus();
+        }
+
+        if (clients.openWindow)
+            return clients.openWindow('/');
+    }));
+
+    //clients.openWindow('https://www.google.com/')
 });
 
 self.addEventListener('install', (event) => {
