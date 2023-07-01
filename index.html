@@ -13,12 +13,15 @@
     <button onclick="NotificationPushJsReq();">push.js</button>
     <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
-    
+
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').then(function (registration) {
                 // 登録成功
                 console.log('ServiceWorker の登録に成功しました。スコープ: ', registration.scope);
+
+                const sw = registration.installing;
+                console.log(registration);
 
                 (
                     async () => {
@@ -46,22 +49,23 @@
         async function NotificationReq() {
             const activeRegistration = await navigator.serviceWorker.ready;
             // この段階では、まだcontrollerはnullのため、active.postMessageでメッセージを送信
-            activeRegistration.active.postMessage({ action: 'notification_req' });
-
+            //activeRegistration.active.postMessage({ action: 'notification_req' });
+            activeRegistration.active.postMessage({ action: 'test' });
         };
 
         function NotificationPushJsReq() {
             Push.create("更新情報",
-                    {
-                        body: "Push.js",
-                        icon: '/icon.png',
-                        timeout: 8000,
-                        onNotificatio: function (e) {
-                            console.log(e);
-                            window.focus();
-                            this.close();
-                        }
-                    });
+                {
+                    body: "Push.js",
+                    icon: '/icon.png',
+                    timeout: 8000,
+                    link: "./#",
+                    onclick: function (e) {
+                        console.log(e);
+                        window.focus();
+                        this.close();
+                    }
+                });
         };
 
     </script>

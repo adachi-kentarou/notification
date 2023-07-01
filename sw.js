@@ -3,6 +3,7 @@ const CACHE_NAME = `${registration.scope}!${CACHE_VERSION}`;
 const MESSAGE_STATE = {
     CLAIM: 'claim',
     NOTIFICATION_REQ: 'notification_req',
+    TEST: 'test'
 
 };
 
@@ -52,9 +53,40 @@ self.onmessage = (message) => {
                                 icon: './icon.png'
                             }
                         ]
+                    }).then((notifi) => {
+                        console.log(notifi);
+
                     });
                 }
             }, 1000);
+            break;
+        case MESSAGE_STATE.TEST:
+            self.registration.showNotification('バイブレーションの例2', {
+                body: `test`,
+                icon: './icon.png',
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
+                tag: 'vibration-sample',
+                actions: [
+                    {
+                        action: 'action1',
+                        title: 'title 1',
+                        icon: './icon.png'
+                    }
+                ]
+            }).then((notifi) => {
+                self.registration.getNotifications({ tag: "vibration-sample" })
+                    .then((notifications) => {
+                        notifications.map((notification) => {
+
+                            notification.addEventListener('click', () => {
+                                console.log('aaaaaaaaaaaa');
+
+                            });
+
+                        });
+                        
+                    });
+            });
             break;
     }
 };
