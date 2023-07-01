@@ -78,8 +78,8 @@ self.addEventListener('notificationclick', (event) => {
             //if ('focus' in client)
                 return client.focus();
         }
+        self.close();
         event.notification.close();
-        
     }));
 
     //clients.openWindow('https://www.google.com/')
