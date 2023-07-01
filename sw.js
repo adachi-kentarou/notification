@@ -58,15 +58,42 @@ self.onmessage = (message) => {
             }, 1000);
             break;
         case MESSAGE_STATE.TEST:
-            self.registration.showNotification('バイブレーションの例2', {
-                body: `test`,
-                icon: './icon.png',
-                vibrate: [200, 100, 200, 100, 200, 100, 200],
-                tag: 'vibration-sample'
-            });
+            let arr = [];
+            CombiRecursion(7, 0, 37, [], arr);
+
+            message.source.postMessage(arr.length);
+
             break;
     }
 };
+
+
+/**
+ * 組み合わせ再帰処理
+ * @function 
+ * @param {number} a_num 開始番号
+ * @param {number} a_start_num 終了番号
+ * @param {number} a_max 最大値
+ * @param {number} a_add_arr 作製中パターン追加用配列
+ * @param {number[Int8Array]} a_push_arr 完成パターンン追加用配列
+ * @returns 
+ */
+function CombiRecursion(a_num, a_start_num, a_max, a_add_arr, a_push_arr) {
+	if (a_num == 0) {
+		a_push_arr.push(new Int8Array(a_add_arr));
+		return;
+	}
+
+	let max = a_max - a_num + 1;
+
+	for (let ii = a_start_num; ii < max; ii++) {
+		let arr = a_add_arr.concat();
+		arr.push(ii + 1);
+
+		CombiRecursion(a_num - 1, ii + 1, a_max, arr, a_push_arr);
+	}
+};
+
 
 self.addEventListener('notificationclick', (event) => {
     event.preventDefault();

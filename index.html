@@ -15,6 +15,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
 
     <script>
+
+        let count = 0;
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').then(function (registration) {
                 // 登録成功
@@ -36,6 +39,13 @@
                 // 登録失敗
                 console.log('ServiceWorker の登録に失敗しました。', err);
             });
+
+
+            navigator.serviceWorker.addEventListener("message", (event) => {
+                
+                NotificationPushJsReq(`The service worker sent me a message: ${event.data}`);
+            });
+
         }
 
         function PermissionReq() {
@@ -53,13 +63,21 @@
             activeRegistration.active.postMessage({ action: 'test' });
         };
 
-        function NotificationPushJsReq() {
+        /**
+         * 
+         * @function
+         * @param {string} msg メッセージ
+         */
+        function NotificationPushJsReq(msg) {
+            
             Push.create("更新情報",
                 {
-                    body: "Push.js",
+                    body: msg,
                     icon: '/icon.png',
                     timeout: 20000,
-                    onClick: function () {
+                    tag: 'msg',
+                    onClick: function (e) {
+console.log(e);
                         window.focus();
                         this.close();
                     }
