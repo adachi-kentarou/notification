@@ -73,12 +73,12 @@ self.addEventListener('notificationclick', (event) => {
         type: "window"
     }).then((clientList) => {
         for (const client of clientList) {
-            if (client.url === '/' && 'focus' in client)
+            if ('focus' in client)
                 return client.focus();
         }
 
         if (clients.openWindow)
-            return clients.openWindow('/');
+            return clients.openWindow('./');
     }));
 
     //clients.openWindow('https://www.google.com/')
