@@ -69,6 +69,7 @@ self.onmessage = (message) => {
 };
 
 self.addEventListener('notificationclick', (event) => {
+    event.preventDefault();
     event.waitUntil(clients.matchAll({
         type: "window"
     }).then((clientList) => {
